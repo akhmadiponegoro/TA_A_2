@@ -1,6 +1,7 @@
 package apap.ta.sipayroll.restcontroller;
 
 import apap.ta.sipayroll.model.BonusModel;
+import apap.ta.sipayroll.model.GajiModel;
 import apap.ta.sipayroll.model.UserModel;
 import apap.ta.sipayroll.rest.BaseResponse;
 import apap.ta.sipayroll.rest.BaseResponseGaji;
@@ -51,18 +52,19 @@ public class BonusRestController {
             BonusModel bonus = new BonusModel();
             String username  = userPelatihan.getUsername();
             String jumlahPelatihan = userPelatihan.getJumlahPelatihan();
+            List<GajiModel> gajiList = gajiService.findAllGaji();
             if(userService.getUserModelByUsername(username) == null){
                 response.setStatus(405);
                 response.setMessage("failed, tidak ada data karyawan");
                 response.setResult(bonus);
-            }else {
+            }else{
                 bonusRestService.sudahAdaUsername(username,jumlahPelatihan);
                 bonus = bonusRestService.bonusPelatihan(username);
                 response.setStatus(200);
                 response.setMessage("success");
                 response.setResult(bonus);
+                }
             }
             return response;
         }
-    }
 }

@@ -52,6 +52,7 @@
                 <td>: </td>
                 <td th:text="${gaji.userPengaju.username}"></td>
             </tr>
+                <div th:if="${#strings.equals(role.determineRole(#httpServletRequest.userPrincipal.name),'Karyawan')}">
             <div th:if="${tidakPernahPelatihan}">
                 <tr>
                     <td class="font-weight-bold">Notes</td>
@@ -59,6 +60,7 @@
                     <td >Gaji dipotong sebesar 10% dari Gaji Pokok</td>
                 </tr>
             </div>
+                </div>
             </tbody>
         </table>
     </div>
