@@ -7,6 +7,7 @@ import apap.ta.sipayroll.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class RekruitmenController{
         return "form-nambah-rekruitmen";
     }
     @RequestMapping(value="/add-rekruitmen", method = RequestMethod.POST)
-    private String addLowonganSubmit(String divisi, String posisi, String jumlah_karyawan, String jenis){
+    private String addLowonganSubmit(String divisi, String posisi, String jumlah_karyawan, String jenis, Model model){
         MultiValueMap<String,String> data = new LinkedMultiValueMap<>();
 //        UserModel user = userService.getUserModelByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -35,13 +36,14 @@ public class RekruitmenController{
         data.add("posisi", posisi);
         data.add("jumlah", jumlah_karyawan);
         data.add("jenis", jenis);
+        model.addAttribute("text", "Request Lowongan Berhasil ditambahkan");
 //       data.add("user",user.getUsername());
 //        System.out.println(data);
 
         if(divisi != null && posisi != null && jumlah_karyawan != null) {
             rekruitmenRestService.postRekruitmen(data);
         }
-        return "redirect:/";
+        return "add-lowongan";
     }
 
 
