@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/user")
@@ -74,8 +75,8 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    private String getUserInfoPage(Model model){
-        UserModel user = userService.getUserModelByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+    private String getUserInfoPage(Model model, HttpServletRequest request){
+        UserModel user = userService.getUserModelByUsername(request.getRemoteUser());
         UserDetail pegawai = userRestService.getUserInfo(user.getUsername());
         model.addAttribute("pegawai", pegawai);
         model.addAttribute("user", user);
