@@ -35,7 +35,6 @@ public class UserController {
         return "signup";
     }
     
-    @Transactional
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUserSubmit(
             @ModelAttribute UserModel user,
