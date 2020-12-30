@@ -36,7 +36,7 @@ public class RekruitmenController{
         data.add("jumlah", jumlah_karyawan);
         data.add("jenis", jenis);
 //       data.add("user",user.getUsername());
-        System.out.println(data);
+//        System.out.println(data);
 
         if(divisi != null && posisi != null && jumlah_karyawan != null) {
             rekruitmenRestService.postRekruitmen(data);

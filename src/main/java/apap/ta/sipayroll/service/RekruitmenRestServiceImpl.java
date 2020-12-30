@@ -22,6 +22,6 @@ public class RekruitmenRestServiceImpl implements RekruitmenRestService {
     @Override
     public Mono<String> postRekruitmen(MultiValueMap<String,String> data) {
         Mono<String> test = this.webClient.post().uri("/api/v1/lowongan").syncBody(data).retrieve().bodyToMono(String.class);
-        System.out.println("ini dari postman" + test.block());
+//        System.out.println("ini dari postman" + test.block());
         return test;
     }}
