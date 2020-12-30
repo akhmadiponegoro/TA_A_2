@@ -108,7 +108,7 @@ public class LemburController {
             if (!start.equals(finish)){
                 notMatch = "Waktu lembur harus dalam tanggal yang sama!";
                 model.addAttribute("notMatch", notMatch);
-                model.addAttribute("lembur", new LemburModel());
+                model.addAttribute("lembur", lembur);
                 model.addAttribute("role",roleService);
                 return "form-change-lembur";
             }else{

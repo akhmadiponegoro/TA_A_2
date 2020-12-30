@@ -53,7 +53,7 @@ public class GajiServiceImpl implements GajiService  {
     public GajiModel changeGaji(GajiModel gaji) {
         GajiModel targetGaji = gajiDb.findById(gaji.getId()).get();
         try {
-            targetGaji.setStatusPersetujuan(gaji.getGajiPokok());
+            targetGaji.setStatusPersetujuan(0);
             targetGaji.setGajiPokok(gaji.getGajiPokok());
             gajiDb.save(targetGaji);
             return targetGaji;

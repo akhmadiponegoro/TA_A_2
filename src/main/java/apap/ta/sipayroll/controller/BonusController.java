@@ -62,6 +62,9 @@ public class BonusController {
                 bonus.setJumlahBonus(1*gajiPokok);
             }else if(bonus.getJenisBonus().getId() == 2){
                 bonus.setJumlahBonus(2*gajiPokok);
+            }else if(bonus.getJenisBonus().getId() == 3){
+                model.addAttribute("text","Bonus hanya dapat ditambahkan melalui Si-pelatihan");
+                return "notif";
             }
             bonusService.addBonus(bonus);
             model.addAttribute("text","Bonus Berhasil ditambahkan sebesar " + bonus.getJumlahBonus());
@@ -77,6 +80,9 @@ public class BonusController {
                         bonus.setJumlahBonus(1*gajiPokok);
                     }else if(bonus.getJenisBonus().getId() == 2){
                         bonus.setJumlahBonus(2*gajiPokok);
+                    }else if(bonus.getJenisBonus().getId() == 3){
+                        model.addAttribute("text","Bonus hanya dapat ditambahkan melalui Si-pelatihan");
+                        return "notif";
                     }
                     bonusService.addBonus(bonus);
                     model.addAttribute("text","Bonus Berhasil ditambahkan sebesar " + bonus.getJumlahBonus());

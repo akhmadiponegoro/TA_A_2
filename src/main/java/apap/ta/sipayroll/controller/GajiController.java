@@ -133,38 +133,46 @@ public class GajiController {
     public String viewGaji(
             @PathVariable(value = "id") Integer id, @PathVariable(value="username") String username, Model model){
         GajiModel gaji = gajiService.getGajiById(id);
-        if (roleService.determineRole(username).equals("Kepala Departemen HR") || roleService.determineRole(username).equals("Staff Payroll")){
-            String  uuid = gaji.getUser().getId();
-            Integer jumlahLembur = lemburService.totalLembur(gaji);
-            Integer jumlahBonus = bonusService.totalBonus(gaji);
-            model.addAttribute("gaji", gaji);
-            model.addAttribute("role",roleService);
-            model.addAttribute("uuid",uuid);
-            model.addAttribute("jumlahLembur",jumlahLembur);
-            model.addAttribute("jumlahBonus",jumlahBonus);
-            model.addAttribute("role",roleService);
-            return "view-gaji";
-        }else {
-            Mono<BaseResponseGaji> response= gajiRestService.getListPesertaPelatihan(username);
-            BaseResponseGaji fix = response.block();
-            List<LinkedHashMap<String,String>> tempPeserta= (List<LinkedHashMap<String,String>>)fix.getResult();
-            Boolean tidakPernahPelatihan = false;
+        if(gaji.getStatusPersetujuan()==0){
+            model.addAttribute("text", "Status gaji anda sedang menunggu persetujuan");
+            return "notif";
+        }else if(gaji.getStatusPersetujuan() == 1){
+            model.addAttribute("text", "Status gaji anda ditolak");
+            return "notif";
+        }else{
+            if (roleService.determineRole(username).equals("Kepala Departemen HR") || roleService.determineRole(username).equals("Staff Payroll")){
+                String  uuid = gaji.getUser().getId();
+                Integer jumlahLembur = lemburService.totalLembur(gaji);
+                Integer jumlahBonus = bonusService.totalBonus(gaji);
+                model.addAttribute("gaji", gaji);
+                model.addAttribute("role",roleService);
+                model.addAttribute("uuid",uuid);
+                model.addAttribute("jumlahLembur",jumlahLembur);
+                model.addAttribute("jumlahBonus",jumlahBonus);
+                model.addAttribute("role",roleService);
+                return "view-gaji";
+            }else {
+                Mono<BaseResponseGaji> response= gajiRestService.getListPesertaPelatihan(username);
+                BaseResponseGaji fix = response.block();
+                List<LinkedHashMap<String,String>> tempPeserta= (List<LinkedHashMap<String,String>>)fix.getResult();
+                Boolean tidakPernahPelatihan = false;
 
-            if(tempPeserta.size()<1){
-                tidakPernahPelatihan = true;
+                if(tempPeserta.size()<1){
+                    tidakPernahPelatihan = true;
+                }
+                else{
+                }
+                String  uuid = gaji.getUser().getId();
+                Integer jumlahLembur = lemburService.totalLembur(gaji);
+                Integer jumlahBonus = bonusService.totalBonus(gaji);
+                model.addAttribute("gaji", gaji);
+                model.addAttribute("uuid",uuid);
+                model.addAttribute("jumlahLembur",jumlahLembur);
+                model.addAttribute("jumlahBonus",jumlahBonus);
+                model.addAttribute("tidakPernahPelatihan",tidakPernahPelatihan);
+                model.addAttribute("role",roleService);
+                return "view-gaji";
             }
-            else{
-            }
-            String  uuid = gaji.getUser().getId();
-            Integer jumlahLembur = lemburService.totalLembur(gaji);
-            Integer jumlahBonus = bonusService.totalBonus(gaji);
-            model.addAttribute("gaji", gaji);
-            model.addAttribute("uuid",uuid);
-            model.addAttribute("jumlahLembur",jumlahLembur);
-            model.addAttribute("jumlahBonus",jumlahBonus);
-            model.addAttribute("tidakPernahPelatihan",tidakPernahPelatihan);
-            model.addAttribute("role",roleService);
-            return "view-gaji";
         }
     }
 
