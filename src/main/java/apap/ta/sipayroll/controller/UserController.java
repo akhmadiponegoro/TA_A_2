@@ -67,7 +67,7 @@ public class UserController {
         }
         else{
             String alert = "User dengan username " + user.getUsername() + " sudah ada.";
-            model.addAttribute("alert", "username");
+            model.addAttribute("alert", alert);
         }
         model.addAttribute("username", user.getUsername());
         model.addAttribute("user", user);
