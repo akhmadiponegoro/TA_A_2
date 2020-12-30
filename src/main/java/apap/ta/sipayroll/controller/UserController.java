@@ -66,6 +66,7 @@ public class UserController {
             return "success-signup";
         }
         else{
+            String alert = "User dengan username " + user.getUsername() + " sudah ada.";
             model.addAttribute("alert", "username");
         }
         model.addAttribute("username", user.getUsername());
