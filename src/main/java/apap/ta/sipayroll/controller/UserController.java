@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,7 +33,8 @@ public class UserController {
         model.addAttribute("listRole", roleService.findAll());
         return "signup";
     }
-
+    
+    @Transactional
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUserSubmit(
             @ModelAttribute UserModel user,
