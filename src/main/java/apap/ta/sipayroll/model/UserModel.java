@@ -27,7 +27,6 @@ public class UserModel implements Serializable {
 
     @NotNull
     @Lob
-//    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "password", nullable = false)
     private String password;
 
