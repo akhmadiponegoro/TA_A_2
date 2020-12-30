@@ -45,6 +45,7 @@ public class UserController {
             @RequestParam(value = "alamat") String alamat,
             Model model) {
 
+        String alert;
         UserModel userExisted = userService.getUserModelByUsername(user.getUsername());
         if(userExisted == null){
             userService.addUser(user);
@@ -66,12 +67,13 @@ public class UserController {
             return "success-signup";
         }
         else{
-            String alert = "User dengan username " + user.getUsername() + " sudah ada.";
+            alert = "User dengan username " + user.getUsername() + " sudah ada.";
             model.addAttribute("alert", alert);
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("user", user);
+            return "redirect:/user/addUser";
         }
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("user", user);
-        return "redirect:/user/addUser";
+        
     }
 
     @GetMapping("/info")
