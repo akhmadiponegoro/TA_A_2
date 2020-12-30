@@ -87,7 +87,7 @@ public class GajiController {
         model.addAttribute("gaji", gaji);
         return "add-gaji";
     }
-    
+
     @RequestMapping("/gaji/viewall")
     public String listGaji(Model model){
         List<GajiModel> listGaji = gajiService.getGajiList();

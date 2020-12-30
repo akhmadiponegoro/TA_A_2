@@ -16,12 +16,12 @@ public class RekruitmenRestServiceImpl implements RekruitmenRestService {
 
     private final WebClient webClient;
     public RekruitmenRestServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient= webClientBuilder.baseUrl("https://9fe1bd89-15a5-40ee-92c7-87836ca8152f.mock.pstmn.io").build();
+        this.webClient= webClientBuilder.baseUrl("http://sirekrutmen.herokuapp.com").build();
     }
 
     @Override
     public Mono<String> postRekruitmen(MultiValueMap<String,String> data) {
-        Mono<String> test = this.webClient.post().uri("/rest/rekruitmen").syncBody(data).retrieve().bodyToMono(String.class);
+        Mono<String> test = this.webClient.post().uri("/api/v1/lowongan").syncBody(data).retrieve().bodyToMono(String.class);
         System.out.println("ini dari postman" + test.block());
         return test;
     }}
