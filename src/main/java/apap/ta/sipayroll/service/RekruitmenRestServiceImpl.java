@@ -1,5 +1,7 @@
 package apap.ta.sipayroll.service;
+import apap.ta.sipayroll.rest.Setting;
 import apap.ta.sipayroll.service.RekruitmenRestService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,9 +21,18 @@ public class RekruitmenRestServiceImpl implements RekruitmenRestService {
         this.webClient= webClientBuilder.baseUrl("http://sirekrutmen.herokuapp.com").build();
     }
 
+
     @Override
-    public Mono<String> postRekruitmen(MultiValueMap<String,String> data) {
-        Mono<String> test = this.webClient.post().uri("/api/v1/lowongan").syncBody(data).retrieve().bodyToMono(String.class);
-//        System.out.println("ini dari postman" + test.block());
-        return test;
-    }}
+    public String postRek(String divisi, String posisi,
+                          String jumlah, String jenis){
+        JSONObject obj = new JSONObject();
+        obj.put("divisi", divisi);
+        obj.put("posisi", posisi);
+        obj.put("jumlah", jumlah);
+        obj.put("jenis", jenis);
+        String jsonFinal = obj.toString();
+        return this.webClient.post().uri("/api/v1/lowongan").header("Content-Type", "application/json").syncBody(jsonFinal).retrieve().bodyToMono(String.class).block();
+    }
+
+
+}

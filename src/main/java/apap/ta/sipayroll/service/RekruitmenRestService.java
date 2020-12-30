@@ -4,5 +4,6 @@ import org.springframework.util.MultiValueMap;
 import reactor.core.publisher.Mono;
 
 public interface RekruitmenRestService {
-    public Mono<String> postRekruitmen(MultiValueMap<String,String> data);
+    String postRek(String divisi, String posisi,
+                    String jumlah, String jenis);
 }
