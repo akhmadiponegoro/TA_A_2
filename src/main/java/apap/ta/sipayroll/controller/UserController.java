@@ -73,7 +73,6 @@ public class UserController {
         return "redirect:/user/addUser";
     }
 
-    @Transactional
     @GetMapping("/info")
     private String getUserInfoPage(Model model){
         UserModel user = userService.getUserModelByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
