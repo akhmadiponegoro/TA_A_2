@@ -71,7 +71,7 @@ public class UserController {
             model.addAttribute("alert", alert);
             model.addAttribute("username", user.getUsername());
             model.addAttribute("user", user);
-            return "redirect:/user/addUser";
+            return "signup";
         }
         
     }
